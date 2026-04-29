@@ -1,26 +1,11 @@
-import random
-import string
+from caca_palavras import CacaPalavras
 
-
-class CacaPalavras:
-    def __init__(self, linhas, colunas):
-        self.linhas = linhas
-        self.colunas = colunas
-        self.matriz = [['.' for _ in range(colunas)] for _ in range(linhas)]
-
-    def inserir_palavras(self, palavra, linha_inicial, coluna_inicial, direcao):
-        palavra = palavra.upper()
-        if direcao == 'H':
-            #Verifica se a palavra cabe na linha
-            if coluna_inicial + len(palavra) > self.colunas:
-                print(f'ERRO: A palavra {palavra} não cabe horizontalmente nesta posição.')
-                return
-
-            #Substitui os pontos pelas letras da palavra na mesma linhas, avançando as colunas.
-            for i in range (len(palavra)):
-                self.matriz[linha_inicial][coluna_inicial + i] = palavra[i]
-
-
-
-#Usando a biblioteca 'string' para pegar as letras maiusculas do alfabeto.
-alfabeto = string.ascii_uppercase
+jogo = CacaPalavras(10, 10)
+jogo.inserir_palavras('javascript', 0, 0, 'v')
+jogo.inserir_palavras('css', 2, 3, 'h')
+jogo.inserir_palavras('python', 1, 1, 'h')
+jogo.inserir_palavras('programar', 1, 7, 'v')
+jogo.inserir_palavras('mysql', 9, 1, 'h')
+jogo.inserir_palavras('sqlserver', 1, 9, 'v')
+jogo.preencher_vazios()
+jogo.exibir()
