@@ -13,7 +13,7 @@ class CacaPalavras:
         direcao = direcao.upper()
 
         if direcao == 'H':
-            #Verifica se a palavra cabe na linha
+            #Verifica se a palavra cabe na linha ou coluna
             if coluna_inicial + len(palavra) > self.colunas:
                 print(f'ERRO: A palavra {palavra} não cabe nesta posição.')
                 return
@@ -21,12 +21,22 @@ class CacaPalavras:
             if linha_inicial + len(palavra) > self.linhas:
                 print(f'ERRO: A palavra {palavra} não cabe nesta posição.')
                 return
+        #Tratamento de colisões. Verifica se o espaço pode ser ocupado pela palavra.
+        for i in range(len(palavra)):
+            if direcao == 'H':
+                letra_atual = self.matriz[linha_inicial][coluna_inicial + i]
+            else:
+                letra_atual = self.matriz[linha_inicial + i][coluna_inicial]
 
-            for i in range(len(palavra)):
-                if direcao == 'h':
-                    self.matriz[linha_inicial][coluna_inicial + i] = palavra[i]
-                else:
-                    self.matriz[linha_inicial + i][coluna_inicial] = palavra[i]
+            if letra_atual != '.' and letra_atual != palavra[i]:
+                print(f'ERRO: A palavra {palavra} não pode ocupar essa posição.')
+                return
+
+        for i in range(len(palavra)):
+            if direcao == 'H':
+                self.matriz[linha_inicial][coluna_inicial + i] = palavra[i]
+            else:
+                self.matriz[linha_inicial + i][coluna_inicial] = palavra[i]
 
     def preencher_vazios(self):
         # Usando a biblioteca 'string' para pegar as letras maiusculas do alfabeto.
